@@ -4,7 +4,7 @@ Theano implementation of CSDNN proposed in [Cost-Aware Pre-Training for Multicla
 
 If you use the code for your research, please consider cite the following paper as:
 ```
-@inproceedings{chung2016costA,
+@inproceedings{chung2016csdnn,
   title     = {Cost-aware pre-training for multiclass cost-sensitive deep learning},
   author    = {Chung, Yu-An and Lin, Hsuan-Tien and Yang, Shao-Wen},
   booktitle = {IJCAI},
@@ -12,9 +12,9 @@ If you use the code for your research, please consider cite the following paper 
 }
 ```
 
-There's also a follow-up work: [Cost-Sensitive Deep Learning wiht Layer-Wise Cost Estimation](https://arxiv.org/abs/1611.05134)
+There's a follow-up work: [Cost-Sensitive Deep Learning wiht Layer-Wise Cost Estimation](https://arxiv.org/abs/1611.05134)
 ```
-@article{chung2016costS,
+@article{chung2016auxcst,
   title   = {Cost-sensitive deep learning with layer-wise cost estimation},
   author  = {Chung, Yu-An and Lin, Hsuan-Tien},
   journal = {arXiv preprint arXiv:1611.05134},

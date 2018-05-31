@@ -129,7 +129,7 @@ class cA(object):
 
         pretrain_model = theano.function(
             inputs=[batch_index, bc],
-            outputs=[cost, L1, L2], # TODO: debug
+            outputs=[cost, L1, L2],
             updates=updates,
             givens={
                 self.x: train_set_x[batch_index * batch_size: (batch_index + 1) * batch_size],

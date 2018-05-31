@@ -70,8 +70,8 @@ def load_cifar(path, grayscale=True, p_valid=0.2, unbalanced=False):
             X, y = np.array(X), np.array(y)
             return [X, y]
 
-        K_drop = 4      # TODO: number of classes to be dropped
-        r_drop = 0.7    # TODO: rate of samples to be dropped (class-wise)
+        K_drop = 4
+        r_drop = 0.7
         class_to_drop = np.random.choice(a=10, size=K_drop, replace=False)
 
         n_keep = int(X_train.shape[0] / 10 * (1 - r_drop))
@@ -89,22 +89,11 @@ def load_cifar(path, grayscale=True, p_valid=0.2, unbalanced=False):
     X_train = X_train[train_ind]
     y_train = y_train[train_ind]
 
-    # print type(X_train), type(y_train), type(X_test), type(y_test)
-    # print X_train.shape, y_train.shape, X_test.shape, y_test.shape
-    # print np.min(X_train), np.max(X_train)
-    # print np.min(y_train), np.max(y_train)
-    # print np.min(X_test), np.max(X_test)
-    # print np.min(y_test), np.max(y_test)
-    # print count_dist(y_train, 10)
-    # print count_dist(y_valid, 10)
-    # print count_dist(y_test, 10)
-
     return [[X_train, y_train], [X_valid, y_valid], [X_test, y_test]]
 
 def main():
     data = load_cifar(
-        # path='/home/syang100/datasets',
-        path='/Users/Andy/Desktop',
+        path='/home/to/your/data',
         grayscale=True,
         p_valid=0.2,
         unbalanced=True

@@ -18,7 +18,6 @@ from toolbox import make_shared_data
 
 
 class CSDNN(object):
-
     def __init__(
         self, numpy_rng,
         n_in, hidden_layer_sizes, n_out
@@ -49,7 +48,7 @@ class CSDNN(object):
                 input=layer_input,
                 n_in=input_size,
                 n_out=hidden_layer_sizes[i],
-                activation=T.nnet.sigmoid   # TODO: try ReLU.
+                activation=T.nnet.sigmoid
             )
 
             self.sigmoid_layers.append(sigmoid_layer)
@@ -158,7 +157,6 @@ class CSDNN(object):
             for batch_index in xrange(n_train_batches):
                 current_batch_cost += train_model(batch_index)
             print '    epoch #%d, loss = %f' % (epoch + 1, current_batch_cost / n_train_batches)
-            # TODO: for acceleration
             Ein, Cin = in_sample_result()
             Eout, Cout = out_sample_result()
             if Cout < best_Cout:
@@ -176,7 +174,7 @@ def main():
 
     from toolbox import CostMatrixGenerator, MNISTLoader, class_to_example
 
-    loader = MNISTLoader('/home/syang100/datasets')
+    loader = MNISTLoader('/home/to/your/data')
 
     train_set, test_set = loader.mnist()
     train_set_x, train_set_y = train_set
@@ -189,7 +187,6 @@ def main():
     test_set_c = class_to_example(test_set_y, cost_mat)
 
     # model parameters
-    # rng_num = np.random.randint(100000)
     rng = np.random.RandomState(123)
     hidden_layer_sizes = [500]
     # pretraining parameters
@@ -229,35 +226,6 @@ def main():
         )
     )
     image.save('filters_7.png')
-
-    """
-    def _pickle_method(m):
-        if m.im_self is None:
-            return getattr, (m.im_class, m.im_func.func_name)
-        else:
-            return getattr, (m.im_self, m.im_func.func_name)
-
-    copy_reg.pickle(types.MethodType, _pickle_method)
-
-    # save pretrained model, the pretrained model can be further tried
-    # with different finetune hyper-parameters
-    # with open('pretrained_CSDNN_model_' + str(rng_num) + '.pkl', 'wb') as f:
-    #     cPickle.dump(reg, f, protocol=cPickle.HIGHEST_PROTOCOL)
-
-    print '... finetuning the model'
-    reg.finetune(
-        train_set=[train_set_x, train_set_y, train_set_c],
-        test_set=[test_set_x, test_set_y, test_set_c],
-        n_epochs=finetune_epochs,
-        learning_rate=finetune_learning_rate,
-        batch_size=finetune_batch_size
-    )
-
-    print 'corruption_levels: ' + str(corruption_levels)
-    print 'balance_coefs: ' + str(balance_coefs)
-    print 'rng_num: ' + str(rng_num)
-
-    """
 
 
 if __name__ == '__main__':

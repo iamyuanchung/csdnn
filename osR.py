@@ -1,7 +1,4 @@
-import cPickle
-
 import numpy as np
-
 import theano
 import theano.tensor as T
 
@@ -43,7 +40,7 @@ class OneSidedCostRegressor(object):
         self.xi = T.maximum((self.Z_nk * (self.cost_predicted_given_x - self.cost_vector)), 0.)
 
         # define the linear one-sisded regression loss
-        self.one_sided_regression_loss = T.sum(self.xi) # TODO: add regularization terms ...
+        self.one_sided_regression_loss = T.sum(self.xi)
 
         # symbolic description of how to compute prediction as class whose
         # cost is minimum
@@ -149,41 +146,3 @@ class OneSidedCostRegressor(object):
 
         print 'after training %d epochs, best_Cout = %f, and corresponding_Eout = %f'   \
                % (n_epochs, best_Cout, corresponding_Eout)
-
-
-def main():
-    """ Run the experiment """
-
-    print '... loading dataset'
-
-    from toolbox import CostMatrixGenerator, MNISTLoader, class_to_example
-
-    loader = MNISTLoader('/home/syang100/datasets')
-
-    train_set, test_set = loader.mnist()
-    train_set_x, train_set_y = train_set
-    test_set_x, test_set_y = test_set
-
-    cmg = CostMatrixGenerator(train_set_y, 10)
-    cost_mat = cmg.general()
-
-    train_set_c = class_to_example(train_set_y, cost_mat)
-    test_set_c = class_to_example(test_set_y, cost_mat)
-
-    reg = OneSidedCostRegressor(
-        input=T.matrix('input'),
-        n_in=28 * 28,
-        n_out=10
-    )
-
-    reg.sgd_optimize(
-        train_set=[train_set_x, train_set_y, train_set_c],
-        test_set=[test_set_x, test_set_y, test_set_c],
-        n_epochs=100,
-        learning_rate=0.001,
-        batch_size=1
-    )
-
-
-if __name__ == '__main__':
-    main()

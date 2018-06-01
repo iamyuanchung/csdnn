@@ -1,12 +1,8 @@
-""" The toolbox module provides serveral useful functions. """
-
 import cPickle
 import gzip
 
 import numpy as np
-
 import theano
-# from sklearn.preprocessing import LabelBinarizer
 
 
 class CostMatrixGenerator(object):

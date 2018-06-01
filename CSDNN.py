@@ -1,16 +1,10 @@
 import cPickle
 
-import types
-import copy_reg
-
 import numpy as np
-
-import PIL.Image as Image
 import theano
 import theano.tensor as T
 from theano.tensor.shared_randomstreams import RandomStreams
 
-from utils import tile_raster_images
 from mlp import HiddenLayer
 from cA import cA
 from osR import OneSidedCostRegressor
@@ -167,66 +161,3 @@ class CSDNN(object):
 
         print 'after training %d epochs, best_Cout = %f, occured in epoch #%d, and corresponding_Eout = %f'   \
                % (n_epochs, best_Cout, corresponding_epoch, corresponding_Eout)
-
-
-def main():
-    print '... loading dataset'
-
-    from toolbox import CostMatrixGenerator, MNISTLoader, class_to_example
-
-    loader = MNISTLoader('/home/to/your/data')
-
-    train_set, test_set = loader.mnist()
-    train_set_x, train_set_y = train_set
-    test_set_x, test_set_y = test_set
-
-    cmg = CostMatrixGenerator(train_set_y, 10)
-    cost_mat = cmg.general()
-
-    train_set_c = class_to_example(train_set_y, cost_mat)
-    test_set_c = class_to_example(test_set_y, cost_mat)
-
-    # model parameters
-    rng = np.random.RandomState(123)
-    hidden_layer_sizes = [500]
-    # pretraining parameters
-    pretrain_epochs = 15
-    pretrain_learning_rate = 0.1
-    pretrain_batch_size = 20
-    corruption_levels = [0.25]
-    balance_coefs = [100.]
-    # finetuneing parameters
-    finetune_epochs = 0
-    finetune_learning_rate = 0.001
-    finetune_batch_size = 1
-
-    reg = CSDNN(
-        numpy_rng=rng,
-        n_in=28 * 28,
-        hidden_layer_sizes=hidden_layer_sizes,
-        n_out=10
-    )
-
-    print '... pre-training model'
-    reg.pretrain(
-        train_set=[train_set_x, train_set_y, train_set_c],
-        n_epochs=pretrain_epochs,
-        learning_rate=pretrain_learning_rate,
-        batch_size=pretrain_batch_size,
-        corruption_levels=corruption_levels,
-        balance_coefs=balance_coefs
-    )
-
-    image = Image.fromarray(
-        tile_raster_images(
-            X=reg.cA_layers[0].W.get_value(borrow=True).T,
-            img_shape=(28, 28),
-            tile_shape=(10, 10),
-            tile_spacing=(1, 1)
-        )
-    )
-    image.save('filters_7.png')
-
-
-if __name__ == '__main__':
-    main()

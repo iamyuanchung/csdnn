@@ -1,8 +1,8 @@
 # Cost-Sensitive Deep Neural Networks (CSDNN)
 
-Theano implementation of CSDNN proposed in [Cost-Aware Pre-Training for Multiclass Cost-Sensitive Deep Learning](http://people.csail.mit.edu/andyyuan/docs/ijcai-16.csdnn.paper.pdf), in *Proceedings of the 25th International Joint Conference on Artificial Intelligence (IJCAI)*, 2016.
+Theano implementation of the CSDNN model proposed in [Cost-Aware Pre-Training for Multiclass Cost-Sensitive Deep Learning](http://people.csail.mit.edu/andyyuan/docs/ijcai-16.csdnn.paper.pdf), in *Proceedings of the 25th International Joint Conference on Artificial Intelligence (IJCAI)*, 2016.
 
-If you use the code, please consider cite the paper as:
+If you use the code, please cite the paper as:
 ```
 @inproceedings{chung2016csdnn,
   title     = {Cost-aware pre-training for multiclass cost-sensitive deep learning},
@@ -12,7 +12,7 @@ If you use the code, please consider cite the paper as:
 }
 ```
 
-Here's a follow-up work: [Cost-Sensitive Deep Learning wiht Layer-Wise Cost Estimation](https://arxiv.org/abs/1611.05134)
+There's also a follow-up work here: [Cost-Sensitive Deep Learning with Layer-Wise Cost Estimation](https://arxiv.org/abs/1611.05134)
 ```
 @article{chung2016auxcst,
   title   = {Cost-sensitive deep learning with layer-wise cost estimation},
